@@ -56,6 +56,11 @@ export default async function Home() {
             </Link>
           </div>
         </div>
+        <p className="text-white">
+          Get started by reading the{" "}
+          <a href="https://create.t3.gg/en/usage/first-steps">hogheoge</a>{" "}
+          guide.
+        </p>
 
         <CrudShowcase />
       </div>
