@@ -1,0 +1,34 @@
+"use client";
+import { Select, SelectItem } from "@nextui-org/react";
+
+type Income = {
+  name: string;
+};
+
+const incomes: Income[] = [
+  { name: "200万以下" },
+  { name: "200万〜300万" },
+  { name: "300万〜400万" },
+  { name: "400万〜500万" },
+  { name: "500万〜600万" },
+  { name: "600万〜800万" },
+  { name: "800万〜1000万" },
+  { name: "1000万〜1200万" },
+  { name: "1200万〜1500万" },
+  { name: "1500万〜2000万" },
+  { name: "2000万以上" },
+];
+export const Income = () => {
+  return (
+    <div>
+      <h1>所得</h1>
+      <Select label="所得" className="max-w-xs">
+        {incomes.map((income) => (
+          <SelectItem key={income.name} value={income.name}>
+            {income.name}
+          </SelectItem>
+        ))}
+      </Select>
+    </div>
+  );
+};
