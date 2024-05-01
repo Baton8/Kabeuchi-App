@@ -39,7 +39,6 @@ const ages: Age[] = [
 export const Age = () => {
   return (
     <div>
-      <h1>年齢</h1>
       <Select label="年齢" className="max-w-xs">
         {ages.map((age) => (
           <SelectItem key={age.value} value={age.value}>

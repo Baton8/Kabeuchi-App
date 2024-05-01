@@ -15,7 +15,6 @@ const educations = [
 export const Education = () => {
   return (
     <div>
-      <h1>学歴</h1>
       <Select label="学歴" className="max-w-xs">
         {educations.map((education) => (
           <SelectItem key={education.name} value={education.name}>

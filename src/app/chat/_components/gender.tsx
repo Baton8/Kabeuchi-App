@@ -10,7 +10,6 @@ const genders = [{ name: "男性" }, { name: "女性" }, { name: "その他" }];
 export const Gender = () => {
   return (
     <div>
-      <h1>性別</h1>
       <Select label="性別" className="max-w-xs">
         {genders.map((gender) => (
           <SelectItem key={gender.name} value={gender.name}>

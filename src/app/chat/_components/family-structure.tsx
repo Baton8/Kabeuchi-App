@@ -16,7 +16,6 @@ const familyStructures: FamilyStructure[] = [
 export const FamilyStructure = () => {
   return (
     <div>
-      <h1>家族構成</h1>
       <Select label="家族構成" className="max-w-xs">
         {familyStructures.map((familyStructure) => (
           <SelectItem key={familyStructure.name} value={familyStructure.name}>

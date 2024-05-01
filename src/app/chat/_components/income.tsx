@@ -21,7 +21,6 @@ const incomes: Income[] = [
 export const Income = () => {
   return (
     <div>
-      <h1>所得</h1>
       <Select label="所得" className="max-w-xs">
         {incomes.map((income) => (
           <SelectItem key={income.name} value={income.name}>

@@ -116,7 +116,6 @@ const styles: Style[] = [
 export const CommunicationStyle = () => {
   return (
     <div>
-      <h1>コミュニケーションスタイル</h1>
       <Select label="コミュニケーションスタイル" className="max-w-xs">
         {styles.map((age) => (
           <SelectItem key={age.name} value={age.name}>

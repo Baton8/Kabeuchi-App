@@ -24,7 +24,6 @@ const jobTitles: JobTitle[] = [
 export const JobTitle = () => {
   return (
     <div>
-      <h1>職種</h1>
       <Select label="職種" className="max-w-xs">
         {jobTitles.map((jt) => (
           <SelectItem key={jt.name} value={jt.name}>

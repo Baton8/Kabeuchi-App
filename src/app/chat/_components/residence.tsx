@@ -20,8 +20,7 @@ const residences: Residence[] = [
 export const Residence = () => {
   return (
     <div>
-      <h1>Residence</h1>
-      <Select label="Residence" className="max-w-xs">
+      <Select label="居住地域" className="max-w-xs">
         {residences.map((residence) => (
           <SelectItem key={residence.name} value={residence.name}>
             {residence.name}

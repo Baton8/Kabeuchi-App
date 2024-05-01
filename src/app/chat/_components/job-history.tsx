@@ -16,7 +16,6 @@ const jobHistories: JobHistory[] = [
 export const JobHistory = () => {
   return (
     <div>
-      <h1>職歴</h1>
       <Select label="職歴" className="max-w-xs">
         {jobHistories.map((jh) => (
           <SelectItem key={jh.name} value={jh.name}>
