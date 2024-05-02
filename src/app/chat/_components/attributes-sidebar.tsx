@@ -7,9 +7,12 @@ import { MdOutlineAdd } from "react-icons/md";
 import { useAttributesModal } from "./attributes-modal";
 import Image from "next/image";
 import Logo from "@/assets/images/wallbouncing.png";
+import { useConversationHistoriesModal } from "./conversation-histories";
 
 export const AttributeSidebar = () => {
-  const { handleModalOpen } = useAttributesModal();
+  const { handleModalOpen: attributesModalOpen } = useAttributesModal();
+  const { handleModalOpen: conversationHistoriesModalOpen } =
+    useConversationHistoriesModal();
   return (
     <aside className="flex flex-col justify-between items-center w-16 gap-4 h-screen">
       <div className="mt-4 flex flex-col justify-center items-center w-full gap-2">
@@ -30,11 +33,16 @@ export const AttributeSidebar = () => {
           isIconOnly
           color="primary"
           aria-label="Settings"
-          onPress={handleModalOpen}
+          onPress={attributesModalOpen}
         >
           <TbSettings className="text-xl" />
         </Button>
-        <Button isIconOnly color="primary" aria-label="History">
+        <Button
+          isIconOnly
+          color="primary"
+          aria-label="History"
+          onPress={conversationHistoriesModalOpen}
+        >
           <TbHistory className="text-xl" />
         </Button>
       </div>
