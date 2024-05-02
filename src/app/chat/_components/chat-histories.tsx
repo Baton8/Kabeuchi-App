@@ -9,11 +9,12 @@ import {
 } from "@nextui-org/react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { FC } from "react";
+import { useChat } from "../_hooks/use-chat";
+import { Loading } from "@/app/_components/loading";
 
 type ChatHistory = {
   id: string;
-  params: string;
-  createdAt: string;
+  createdAt: Date;
 };
 
 type ChatHistoriesProps = {
@@ -21,12 +22,14 @@ type ChatHistoriesProps = {
 };
 
 export const ChatHistories: FC<ChatHistoriesProps> = ({ chatHistories }) => {
+  const formattedDate = (date: Date) => {
+    return new Date(date).toLocaleString();
+  };
   return (
     <div>
       {chatHistories.map((chatHistory) => (
         <div key={chatHistory.id}>
-          <div>{chatHistory.params}</div>
-          <div>{chatHistory.createdAt}</div>
+          <div>{formattedDate(chatHistory.createdAt)}</div>
         </div>
       ))}
     </div>
@@ -54,6 +57,7 @@ type ChatHistoriesModalProps = {};
 export const ChatHistoriesModal: FC<ChatHistoriesModalProps> = () => {
   const isOpen = useAtomValue(chatHistoriesModalOpenAtom);
   const { handleModalClose } = useChatHistoriesModal();
+  const { data, isLoading } = useChat();
 
   return (
     <Modal size={"4xl"} isOpen={isOpen} onClose={handleModalClose}>
@@ -62,20 +66,11 @@ export const ChatHistoriesModal: FC<ChatHistoriesModalProps> = () => {
           <>
             <ModalHeader className="flex flex-col gap-1">会話履歴</ModalHeader>
             <ModalBody>
-              <ChatHistories
-                chatHistories={[
-                  {
-                    id: "1",
-                    params: "test1",
-                    createdAt: "2021-09-01",
-                  },
-                  {
-                    id: "2",
-                    params: "test2",
-                    createdAt: "2021-09-02",
-                  },
-                ]}
-              />
+              {isLoading ? (
+                <Loading />
+              ) : (
+                <ChatHistories chatHistories={data || []} />
+              )}
             </ModalBody>
             <ModalFooter>
               <Button color="primary" onPress={onClose}>
