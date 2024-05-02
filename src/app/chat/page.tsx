@@ -20,7 +20,7 @@ export default function Page() {
     <div className="flex flex-row h-screen items-center justify-center">
       <AttributeSidebar />
       <AttributesModal />
-      <Divider orientation="vertical" className="h-[80%]" />
+      <Divider orientation="vertical" className="h-[90%]" />
       <main className="w-full">
         <ChatContainer />
       </main>
