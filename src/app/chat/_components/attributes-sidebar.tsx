@@ -8,11 +8,14 @@ import { useAttributesModal } from "./attributes-modal";
 import Image from "next/image";
 import Logo from "@/assets/images/wallbouncing.png";
 import { useConversationHistoriesModal } from "./conversation-histories";
+import { usePromptsModal } from "./prompts-modal";
 
 export const AttributeSidebar = () => {
   const { handleModalOpen: attributesModalOpen } = useAttributesModal();
   const { handleModalOpen: conversationHistoriesModalOpen } =
     useConversationHistoriesModal();
+  const { handleModalOpen: promptsModalOpen } = usePromptsModal();
+
   return (
     <aside className="flex flex-col justify-between items-center w-16 gap-4 h-screen">
       <div className="mt-4 flex flex-col justify-center items-center w-full gap-2">
@@ -26,7 +29,12 @@ export const AttributeSidebar = () => {
       </div>
 
       <div className="flex flex-col justify-center items-center w-full gap-4">
-        <Button isIconOnly color="primary" aria-label="Prompt">
+        <Button
+          isIconOnly
+          color="primary"
+          aria-label="Prompt"
+          onPress={promptsModalOpen}
+        >
           <TbPrompt className="text-xl" />
         </Button>
         <Button
