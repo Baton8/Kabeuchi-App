@@ -37,9 +37,7 @@ export const AttributesModal: FC<AttributesModalProps> = () => {
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1">
-              Modal Title
-            </ModalHeader>
+            <ModalHeader className="flex flex-col gap-1">設定</ModalHeader>
             <ModalBody>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
@@ -60,10 +58,10 @@ export const AttributesModal: FC<AttributesModalProps> = () => {
             </ModalBody>
             <ModalFooter>
               <Button color="danger" variant="light" onPress={onClose}>
-                Close
+                閉じる
               </Button>
               <Button color="primary" onPress={onClose}>
-                Action
+                保存
               </Button>
             </ModalFooter>
           </>

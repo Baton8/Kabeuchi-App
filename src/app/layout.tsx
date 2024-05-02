@@ -1,11 +1,12 @@
 import "@/styles/globals.css";
 
-import { Noto_Sans_Javanese } from "next/font/google";
+import { Zen_Kaku_Gothic_New } from "next/font/google";
 
 import { TRPCReactProvider } from "@/trpc/react";
 import { Providers } from "./_components/Providers";
 
-const font = Noto_Sans_Javanese({
+const font = Zen_Kaku_Gothic_New({
+  weight: ["300", "400", "500", "700", "900"],
   subsets: ["latin"],
 });
 
