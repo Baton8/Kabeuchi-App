@@ -1,19 +1,7 @@
-import { AttributeSidebar } from "./_components/attributes-sidebar";
-import { Age } from "./_components/settings/age";
-import { CommunicationStyle } from "./_components/settings/communication-style";
-import { Education } from "./_components/settings/education";
-import { FamilyStructure } from "./_components/settings/family-structure";
-import { Gender } from "./_components/settings/gender";
-import { Income } from "./_components/settings/income";
-import { JobHistory } from "./_components/settings/job-history";
-import { JobTitle } from "./_components/settings/job-title";
-import { JobPosition } from "./_components/settings/position";
-import { Personality } from "./_components/settings/presonality";
-import { Residence } from "./_components/settings/residence";
-import { SkillSet } from "./_components/settings/skill-set";
-import { AttributesModal } from "./_components/attributes-modal";
-import { ChatContainer } from "./_components/chat-container";
 import { Divider } from "@nextui-org/react";
+import { AttributesModal } from "./_components/attributes-modal";
+import { AttributeSidebar } from "./_components/attributes-sidebar";
+import { ChatContainer } from "./_components/chat-container";
 
 export default function Page() {
   return (
