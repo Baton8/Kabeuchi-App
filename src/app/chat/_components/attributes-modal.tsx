@@ -9,6 +9,17 @@ import {
 } from "@nextui-org/react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { FC } from "react";
+import { Age } from "./settings/age";
+import { CommunicationStyle } from "./settings/communication-style";
+import { Education } from "./settings/education";
+import { FamilyStructure } from "./settings/family-structure";
+import { Gender } from "./settings/gender";
+import { Income } from "./settings/income";
+import { JobHistory } from "./settings/job-history";
+import { JobTitle } from "./settings/job-title";
+import { JobPosition } from "./settings/position";
+import { Residence } from "./settings/residence";
+import { SkillSet } from "./settings/skill-set";
 
 const attributesModalOpenAtom = atom(false);
 
@@ -39,22 +50,17 @@ export const AttributesModal: FC<AttributesModalProps> = () => {
           <>
             <ModalHeader className="flex flex-col gap-1">設定</ModalHeader>
             <ModalBody>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                pulvinar risus non risus hendrerit venenatis. Pellentesque sit
-                amet hendrerit risus, sed porttitor quam.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                pulvinar risus non risus hendrerit venenatis. Pellentesque sit
-                amet hendrerit risus, sed porttitor quam.
-              </p>
-              <p>
-                Magna exercitation reprehenderit magna aute tempor cupidatat
-                consequat elit dolor adipisicing. Mollit dolor eiusmod sunt ex
-                incididunt cillum quis. Velit duis sit officia eiusmod Lorem
-                aliqua enim laboris do dolor eiusmod.
-              </p>
+              <Age />
+              <Education />
+              <CommunicationStyle />
+              <FamilyStructure />
+              <Gender />
+              <Income />
+              <JobHistory />
+              <JobTitle />
+              <JobPosition />
+              <Residence />
+              <SkillSet />
             </ModalBody>
             <ModalFooter>
               <Button color="danger" variant="light" onPress={onClose}>
