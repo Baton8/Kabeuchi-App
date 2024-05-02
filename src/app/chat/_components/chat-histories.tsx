@@ -10,35 +10,33 @@ import {
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { FC } from "react";
 
-type ConversationHistory = {
+type ChatHistory = {
   id: string;
   params: string;
   createdAt: string;
 };
 
-type ConversationHistoriesProps = {
-  conversationHistories: ConversationHistory[];
+type ChatHistoriesProps = {
+  chatHistories: ChatHistory[];
 };
 
-export const ConversationHistories: FC<ConversationHistoriesProps> = ({
-  conversationHistories,
-}) => {
+export const ChatHistories: FC<ChatHistoriesProps> = ({ chatHistories }) => {
   return (
     <div>
-      {conversationHistories.map((conversationHistory) => (
-        <div key={conversationHistory.id}>
-          <div>{conversationHistory.params}</div>
-          <div>{conversationHistory.createdAt}</div>
+      {chatHistories.map((chatHistory) => (
+        <div key={chatHistory.id}>
+          <div>{chatHistory.params}</div>
+          <div>{chatHistory.createdAt}</div>
         </div>
       ))}
     </div>
   );
 };
 
-const conversationHistoriesModalOpenAtom = atom(false);
+const chatHistoriesModalOpenAtom = atom(false);
 
-export function useConversationHistoriesModal() {
-  const setAttributesModalOpen = useSetAtom(conversationHistoriesModalOpenAtom);
+export function useChatHistoriesModal() {
+  const setAttributesModalOpen = useSetAtom(chatHistoriesModalOpenAtom);
 
   const handleModalOpen = () => {
     setAttributesModalOpen(true);
@@ -51,13 +49,11 @@ export function useConversationHistoriesModal() {
   return { handleModalOpen, handleModalClose };
 }
 
-type ConversationHistoriesModalProps = {};
+type ChatHistoriesModalProps = {};
 
-export const ConversationHistoriesModal: FC<
-  ConversationHistoriesModalProps
-> = () => {
-  const isOpen = useAtomValue(conversationHistoriesModalOpenAtom);
-  const { handleModalClose } = useConversationHistoriesModal();
+export const ChatHistoriesModal: FC<ChatHistoriesModalProps> = () => {
+  const isOpen = useAtomValue(chatHistoriesModalOpenAtom);
+  const { handleModalClose } = useChatHistoriesModal();
 
   return (
     <Modal size={"4xl"} isOpen={isOpen} onClose={handleModalClose}>
@@ -66,8 +62,8 @@ export const ConversationHistoriesModal: FC<
           <>
             <ModalHeader className="flex flex-col gap-1">会話履歴</ModalHeader>
             <ModalBody>
-              <ConversationHistories
-                conversationHistories={[
+              <ChatHistories
+                chatHistories={[
                   {
                     id: "1",
                     params: "test1",

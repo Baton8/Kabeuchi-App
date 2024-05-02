@@ -7,14 +7,14 @@ import { MdOutlineAdd } from "react-icons/md";
 import { useAttributesModal } from "./attributes-modal";
 import Image from "next/image";
 import Logo from "@/assets/images/wallbouncing.png";
-import { useConversationHistoriesModal } from "./conversation-histories";
+import { useChatHistoriesModal } from "./chat-histories";
 import { usePromptsModal } from "./prompts-modal";
 import { useChat } from "../_hooks/use-chat";
 
 export const AttributeSidebar = () => {
   const { handleModalOpen: attributesModalOpen } = useAttributesModal();
   const { handleModalOpen: conversationHistoriesModalOpen } =
-    useConversationHistoriesModal();
+    useChatHistoriesModal();
   const { handleModalOpen: promptsModalOpen } = usePromptsModal();
 
   const { create: createChat } = useChat();
