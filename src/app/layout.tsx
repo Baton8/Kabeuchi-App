@@ -3,7 +3,7 @@ import "@/styles/globals.css";
 import { Zen_Kaku_Gothic_New } from "next/font/google";
 
 import { TRPCReactProvider } from "@/trpc/react";
-import { Providers } from "./_components/ui-providers";
+import { Providers } from "./_components/providers";
 
 const font = Zen_Kaku_Gothic_New({
   weight: ["300", "400", "500", "700", "900"],
