@@ -9,12 +9,15 @@ import Image from "next/image";
 import Logo from "@/assets/images/wallbouncing.png";
 import { useConversationHistoriesModal } from "./conversation-histories";
 import { usePromptsModal } from "./prompts-modal";
+import { useChat } from "../_hooks/use-chat";
 
 export const AttributeSidebar = () => {
   const { handleModalOpen: attributesModalOpen } = useAttributesModal();
   const { handleModalOpen: conversationHistoriesModalOpen } =
     useConversationHistoriesModal();
   const { handleModalOpen: promptsModalOpen } = usePromptsModal();
+
+  const { create: createChat } = useChat();
 
   return (
     <aside className="flex flex-col justify-between items-center w-16 gap-4 h-screen">
@@ -26,7 +29,12 @@ export const AttributeSidebar = () => {
         </Tooltip>
         <Divider className="w-[80%]" />
         <Tooltip content="Add Chat" placement="right" color="primary">
-          <Button isIconOnly color="primary" aria-label="Add Chat">
+          <Button
+            isIconOnly
+            color="primary"
+            aria-label="Add Chat"
+            onPress={createChat}
+          >
             <MdOutlineAdd className="text-xl" />
           </Button>
         </Tooltip>
