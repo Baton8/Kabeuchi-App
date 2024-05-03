@@ -50,17 +50,19 @@ export const AttributesModal: FC<AttributesModalProps> = () => {
           <>
             <ModalHeader className="flex flex-col gap-1">設定</ModalHeader>
             <ModalBody>
-              <Age />
-              <Education />
-              <CommunicationStyle />
-              <FamilyStructure />
-              <Gender />
-              <Income />
-              <JobHistory />
-              <JobTitle />
-              <JobPosition />
-              <Residence />
-              <SkillSet />
+              <div className="grid grid-cols-2 gap-4">
+                <Age />
+                <Education />
+                <CommunicationStyle />
+                <FamilyStructure />
+                <Gender />
+                <Income />
+                <JobHistory />
+                <JobTitle />
+                <JobPosition />
+                <Residence />
+                <SkillSet />
+              </div>
             </ModalBody>
             <ModalFooter>
               <Button color="danger" variant="light" onPress={onClose}>
