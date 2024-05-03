@@ -6,6 +6,7 @@ import { useCurrentChatId } from "../../_hooks/use-current-chat-id";
 import { useMessages } from "../../_hooks/use-message";
 import { Form } from "./form";
 import { MessageBubble } from "./message-bubble";
+import { Dashboard } from "../dashboard/dashboard";
 
 export const ChatContainer = () => {
   const searchParams = useSearchParams();
@@ -18,6 +19,10 @@ export const ChatContainer = () => {
       setCurrentChatId(chatId);
     }
   }, [chatId]);
+
+  if (!chatId) {
+    return <Dashboard />;
+  }
 
   return (
     <div className="flex flex-col justify-between items-center h-screen">
