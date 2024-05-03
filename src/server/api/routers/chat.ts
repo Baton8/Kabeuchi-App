@@ -34,8 +34,16 @@ export const chatRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const { options } = input;
       const chats = await ctx.db.chat.findMany({
+        include: {
+          chatMessage: {
+            select: {
+              id: true,
+            },
+          },
+        },
         where: {
           id: { in: options.conditions.ids },
+          userId: ctx.session.user.id,
         },
         orderBy: {
           [options.sort.field]: options.sort.order,
@@ -44,7 +52,14 @@ export const chatRouter = createTRPCRouter({
         take: options.pagination.limit,
       });
 
-      return chats;
+      console.log(chats);
+
+      const chatsWithMessageCount = chats.map((chat) => ({
+        ...chat,
+        messageCount: chat.chatMessage.length,
+      }));
+
+      return chatsWithMessageCount;
     }),
 
   create: protectedProcedure.mutation(async ({ ctx }) => {
