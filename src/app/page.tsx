@@ -23,7 +23,16 @@ export default async function Home() {
               </>
             )}
           </p>
-          <Button color="primary" size="lg" className="text-xl font-bold">
+          <Link href={"/chat"}>
+            <Button color="primary" size="lg" className="font-bold">
+              Go to Chat
+            </Button>
+          </Link>
+          <Button
+            color={session ? "default" : "primary"}
+            size={session ? "md" : "lg"}
+            className={session ? "text-md" : "text-lg"}
+          >
             <Link href={session ? "/api/auth/signout" : "/api/auth/signin"}>
               {session ? "Sign out" : "Sign in"}
             </Link>
