@@ -1,7 +1,14 @@
 import { api } from "@/trpc/react";
+import { useRouter } from "next/navigation";
 
 export function useChat() {
-  const createMutation = api.chat.create.useMutation();
+  const router = useRouter();
+  const createMutation = api.chat.create.useMutation({
+    onSuccess(data) {
+      router.push(`/chat/${data.id}`);
+    },
+  });
+
   const { data, isLoading } = api.chat.findAll.useQuery({
     options: {
       sort: {

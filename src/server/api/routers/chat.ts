@@ -48,11 +48,13 @@ export const chatRouter = createTRPCRouter({
     }),
 
   create: protectedProcedure.mutation(async ({ ctx }) => {
-    return ctx.db.chat.create({
+    const chat = await ctx.db.chat.create({
       data: {
         user: { connect: { id: ctx.session.user.id } },
       },
     });
+
+    return chat;
   }),
 
   delete: protectedProcedure
