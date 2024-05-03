@@ -1,12 +1,17 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Button, Textarea } from "@nextui-org/react";
 import { FC } from "react";
+import { useCurrentChatId } from "../../_hooks/use-current-chat-id";
+import { api } from "@/trpc/react";
 
 type Inputs = {
   message: string;
 };
 
 export const Form: FC = () => {
+  const { currentChatId } = useCurrentChatId();
+  const messageMutation = api.message.create.useMutation();
+
   const {
     register,
     handleSubmit,
@@ -14,7 +19,12 @@ export const Form: FC = () => {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+    if (!currentChatId) return;
+
+    messageMutation.mutate({
+      chatId: currentChatId,
+      message: data.message,
+    });
   };
 
   return (
