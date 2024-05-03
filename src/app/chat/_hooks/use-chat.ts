@@ -15,10 +15,6 @@ export function useChat() {
         field: "createdAt",
         order: "desc",
       },
-      pagination: {
-        offset: 1,
-        limit: 10,
-      },
       conditions: {},
     },
   });

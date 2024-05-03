@@ -24,10 +24,6 @@ export const chatRouter = createTRPCRouter({
               ),
             order: z.literal("asc").or(z.literal("desc")),
           }),
-          pagination: z.object({
-            limit: z.number().int().positive(),
-            offset: z.number().int().nonnegative(),
-          }),
         }),
       })
     )
@@ -48,8 +44,6 @@ export const chatRouter = createTRPCRouter({
         orderBy: {
           [options.sort.field]: options.sort.order,
         },
-        skip: options.pagination.offset,
-        take: options.pagination.limit,
       });
 
       console.log(chats);

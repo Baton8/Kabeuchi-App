@@ -68,6 +68,9 @@ export const Dashboard = () => {
           >
             <CardBody>
               <span className="text-white font-bold">New Chat</span>
+              <span className="text-white text-xs">
+                新しくチャットをはじめる。
+              </span>
             </CardBody>
           </Card>
           <ChatList />
