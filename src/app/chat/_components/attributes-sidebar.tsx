@@ -10,6 +10,7 @@ import Logo from "@/assets/images/wallbouncing.png";
 import { useChatHistoriesModal } from "./chat-histories";
 import { usePromptsModal } from "./prompts-modal";
 import { useChat } from "../_hooks/use-chat";
+import Link from "next/link";
 
 export const AttributeSidebar = () => {
   const { handleModalOpen: attributesModalOpen } = useAttributesModal();
@@ -23,9 +24,11 @@ export const AttributeSidebar = () => {
     <aside className="flex flex-col justify-between items-center w-16 gap-4 h-screen">
       <div className="mt-4 flex flex-col justify-center items-center w-full gap-2">
         <Tooltip content="Top" placement="right" color="primary">
-          <Button isIconOnly aria-label="WallBouncing" variant="bordered">
-            <Image src={Logo} alt="WallBouncing" />
-          </Button>
+          <Link href="/">
+            <Button isIconOnly aria-label="WallBouncing" variant="bordered">
+              <Image src={Logo} alt="WallBouncing" />
+            </Button>
+          </Link>
         </Tooltip>
         <Divider className="w-[80%]" />
         <Tooltip content="Add Chat" placement="right" color="primary">
