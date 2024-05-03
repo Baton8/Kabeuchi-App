@@ -6,31 +6,61 @@ import {
   ModalBody,
   ModalFooter,
   Button,
+  Card,
+  CardBody,
 } from "@nextui-org/react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { FC } from "react";
 import { useChat } from "../_hooks/use-chat";
 import { Loading } from "@/app/_components/loading";
+import { useRouter } from "next/navigation";
 
 type ChatHistory = {
   id: string;
+  messageCount: number;
   createdAt: Date;
 };
 
 type ChatHistoriesProps = {
   chatHistories: ChatHistory[];
+  handleModalClose: () => void;
 };
 
-export const ChatHistories: FC<ChatHistoriesProps> = ({ chatHistories }) => {
-  const formattedDate = (date: Date) => {
-    return new Date(date).toLocaleString();
+const ChatHistories: FC<ChatHistoriesProps> = ({
+  chatHistories,
+  handleModalClose,
+}) => {
+  const router = useRouter();
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString("ja-JP", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   };
+
+  const handleOnPress = (id: string) => {
+    router.push(`/chat?id=${id}`);
+    handleModalClose();
+  };
+
   return (
-    <div>
-      {chatHistories.map((chatHistory) => (
-        <div key={chatHistory.id}>
-          <div>{formattedDate(chatHistory.createdAt)}</div>
-        </div>
+    <div className="grid grid-cols-2 gap-4 p-4 overflow-y-scroll">
+      {chatHistories.map((ch) => (
+        <Card
+          key={ch.id}
+          isPressable
+          className="px-8 py-4 hover:scale-105"
+          onPress={() => handleOnPress(ch.id)}
+        >
+          <CardBody>
+            <span>{formatDate(ch.createdAt)}</span>
+            <span>メッセージ数: {ch.messageCount}</span>
+          </CardBody>
+        </Card>
       ))}
     </div>
   );
@@ -60,7 +90,7 @@ export const ChatHistoriesModal: FC<ChatHistoriesModalProps> = () => {
   const { data, isLoading } = useChat();
 
   return (
-    <Modal size={"4xl"} isOpen={isOpen} onClose={handleModalClose}>
+    <Modal size={"3xl"} isOpen={isOpen} onClose={handleModalClose}>
       <ModalContent>
         {(onClose) => (
           <>
@@ -69,7 +99,10 @@ export const ChatHistoriesModal: FC<ChatHistoriesModalProps> = () => {
               {isLoading ? (
                 <Loading />
               ) : (
-                <ChatHistories chatHistories={data || []} />
+                <ChatHistories
+                  chatHistories={data || []}
+                  handleModalClose={handleModalClose}
+                />
               )}
             </ModalBody>
             <ModalFooter>
