@@ -3,6 +3,7 @@ import { Button, Textarea } from "@nextui-org/react";
 import { FC } from "react";
 import { useCurrentChatId } from "../../_hooks/use-current-chat-id";
 import { api } from "@/trpc/react";
+import { useMessages } from "../../_hooks/use-message";
 
 type Inputs = {
   message: string;
@@ -10,11 +11,20 @@ type Inputs = {
 
 export const Form: FC = () => {
   const { currentChatId } = useCurrentChatId();
-  const messageMutation = api.message.create.useMutation();
+  const { addMessage } = useMessages();
+  const messageMutation = api.message.create.useMutation({
+    onMutate: (data) => {
+      addMessage({ role: "user", message: data.message });
+    },
+    onSuccess: (data) => {
+      addMessage(data);
+    },
+  });
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<Inputs>();
 
@@ -25,6 +35,8 @@ export const Form: FC = () => {
       chatId: currentChatId,
       message: data.message,
     });
+
+    reset();
   };
 
   return (

@@ -6,6 +6,8 @@ import { Message } from "@/app/chat/_components/messages/message-bubble";
 
 type SortField = "createdAt";
 
+type Role = "user" | "bot";
+
 function aiRandomMessage() {
   const messages = [
     "私はAIなので感情はありませんが、お手伝いできますよ！",
@@ -90,7 +92,7 @@ export const messageRouter = createTRPCRouter({
 
       const botMessage = data[1].message;
 
-      return { role: "bot", message: botMessage };
+      return { role: "bot" as Role, message: botMessage };
     }),
 
   delete: protectedProcedure
