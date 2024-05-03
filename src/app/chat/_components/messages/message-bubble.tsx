@@ -3,7 +3,7 @@ import { TbRobotFace } from "react-icons/tb";
 import { FiUser } from "react-icons/fi";
 
 export type Message = {
-  role: "user" | "ai";
+  role: "user" | "bot";
   message: string;
 };
 

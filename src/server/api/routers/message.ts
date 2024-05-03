@@ -1,6 +1,8 @@
 import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
+import { ChatMessage, Prisma, PrismaClient } from "@prisma/client";
+import { Message } from "@/app/chat/_components/messages/message-bubble";
 
 type SortField = "createdAt";
 
@@ -14,6 +16,14 @@ function aiRandomMessage() {
   ];
 
   return messages[Math.floor(Math.random() * messages.length)] as string;
+}
+
+function toMessage(messages: ChatMessage[]): Message[] {
+  return messages.map((message) => ({
+    id: message.id,
+    role: message.role as "user" | "bot",
+    message: message.message,
+  }));
 }
 
 export const messageRouter = createTRPCRouter({
@@ -52,7 +62,7 @@ export const messageRouter = createTRPCRouter({
         },
       });
 
-      return messages;
+      return toMessage(messages);
     }),
 
   create: protectedProcedure
@@ -86,7 +96,7 @@ export const messageRouter = createTRPCRouter({
   delete: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      return ctx.db.chat.delete({
+      return ctx.db.chatMessage.delete({
         where: { id: input.id },
       });
     }),
