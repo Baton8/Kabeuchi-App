@@ -5,7 +5,7 @@ export function useChat() {
   const router = useRouter();
   const createMutation = api.chat.create.useMutation({
     onSuccess(data) {
-      router.push(`/chat/${data.id}`);
+      router.push(`/chat?id=${data.id}`);
     },
   });
 
