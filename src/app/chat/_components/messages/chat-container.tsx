@@ -1,28 +1,17 @@
 "use client";
+import { Loading } from "@/app/_components/loading";
 import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import { useCurrentChatId } from "../../_hooks/use-current-chat-id";
+import { useMessages } from "../../_hooks/use-message";
 import { Form } from "./form";
 import { MessageBubble } from "./message-bubble";
-import { api } from "@/trpc/react";
-import { Loading } from "@/app/_components/loading";
-import { useCurrentChatId } from "../../_hooks/use-current-chat-id";
-import { useEffect } from "react";
 
 export const ChatContainer = () => {
   const searchParams = useSearchParams();
   const chatId = searchParams.get("id");
   const { setCurrentChatId } = useCurrentChatId();
-
-  const { data: messages, isLoading } = api.message.findAll.useQuery({
-    options: {
-      conditions: {
-        chatIds: chatId ? [chatId] : undefined,
-      },
-      sort: {
-        field: "createdAt",
-        order: "asc",
-      },
-    },
-  });
+  const { messages, isLoading } = useMessages();
 
   useEffect(() => {
     if (chatId) {
