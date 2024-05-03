@@ -3,21 +3,34 @@ import { useChat } from "../../_hooks/use-chat";
 import { usePromptsModal } from "../prompts-modal";
 import { useAttributesModal } from "../attributes-modal";
 import { Loading } from "@/app/_components/loading";
+import { useRouter } from "next/navigation";
 
 const ChatList = () => {
   const { data, isLoading } = useChat();
+  const router = useRouter();
   if (isLoading) {
     return <Loading />;
   }
 
   const formatDate = (date: Date) => {
-    return date.toLocaleDateString();
+    return date.toLocaleDateString("ja-JP", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   };
 
   return (
     <>
       {data?.map((chat) => (
-        <Card key={chat.id} isPressable className="px-8 py-4 hover:scale-105">
+        <Card
+          key={chat.id}
+          isPressable
+          className="px-8 py-4 hover:scale-105"
+          onPress={() => router.push(`/chat?id=${chat.id}`)}
+        >
           <CardBody>
             <span>{formatDate(chat.createdAt)}</span>
             <span>メッセージ数: {chat.messageCount}</span>
