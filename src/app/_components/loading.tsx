@@ -1,6 +1,12 @@
 import { Spinner } from "@nextui-org/react";
 import { FC } from "react";
 
-export const Loading: FC = () => {
-  return <Spinner label="Loading..." color="primary" />;
+type LoadingProps = {
+  className?: string;
+};
+
+export const Loading: FC<LoadingProps> = (props) => {
+  return (
+    <Spinner label="Loading..." color="primary" className={props.className} />
+  );
 };

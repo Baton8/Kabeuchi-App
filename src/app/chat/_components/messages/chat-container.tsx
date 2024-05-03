@@ -23,15 +23,17 @@ export const ChatContainer = () => {
 
   return (
     <div className="flex flex-col justify-between items-center h-screen">
-      <div className="w-full flex flex-col justify-start items-start overflow-y-scroll py-2">
-        {isLoading ? (
+      {isLoading ? (
+        <div className="w-full h-full flex justify-center items-center">
           <Loading />
-        ) : (
-          messages?.map((message, index) => (
+        </div>
+      ) : (
+        <div className="w-full flex flex-col justify-start items-start overflow-y-scroll py-2">
+          {messages?.map((message, index) => (
             <MessageBubble key={index} message={message} />
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
       <div className="w-full pt-4">
         <Form />
       </div>
