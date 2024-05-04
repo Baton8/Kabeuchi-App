@@ -46,14 +46,16 @@ export const chatRouter = createTRPCRouter({
         },
       });
 
-      console.log(chats);
-
       const chatsWithMessageCount = chats.map((chat) => ({
         ...chat,
         messageCount: chat.chatMessage.length,
       }));
 
-      return chatsWithMessageCount;
+      const filteredChats = chatsWithMessageCount.filter(
+        (chat) => chat.messageCount > 0
+      );
+
+      return filteredChats;
     }),
 
   create: protectedProcedure.mutation(async ({ ctx }) => {
