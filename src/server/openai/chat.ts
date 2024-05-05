@@ -12,7 +12,7 @@ export async function createChat(messages: Messages): Promise<string> {
     model: "gpt-3.5-turbo",
     messages,
     temperature: 1,
-    max_tokens: 256,
+    max_tokens: 512,
     top_p: 1,
     frequency_penalty: 0,
     presence_penalty: 0,
