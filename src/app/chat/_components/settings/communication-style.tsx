@@ -1,5 +1,7 @@
 "use client";
 import { Select, SelectItem } from "@nextui-org/react";
+import { useState, useEffect, type ChangeEventHandler } from "react";
+import { useAttributes } from "../../_hooks/use-attributes";
 
 type Style = {
   name: string;
@@ -114,9 +116,33 @@ const styles: Style[] = [
 ];
 
 export const CommunicationStyle = () => {
+  const [value, setValue] = useState<string>("");
+
+  const { attributes, setAttributes } = useAttributes();
+
+  const defaultStyle = styles.find(
+    (Style) => Style.name === attributes.communicationStyle
+  );
+
+  useEffect(() => {
+    if (defaultStyle) {
+      setValue(defaultStyle.name);
+    }
+  }, [defaultStyle]);
+
+  const handleChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
+    setValue(e.target.value);
+    setAttributes({ ...attributes, communicationStyle: e.target.value });
+  };
+
   return (
     <div>
-      <Select label="コミュニケーションスタイル" className="max-w-xs">
+      <Select
+        label="コミュニケーションスタイル"
+        className="max-w-xs"
+        selectedKeys={[value]}
+        onChange={handleChange}
+      >
         {styles.map((age) => (
           <SelectItem key={age.name} value={age.name}>
             {age.name}
