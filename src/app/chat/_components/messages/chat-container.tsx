@@ -1,14 +1,14 @@
 "use client";
 import { Loading } from "@/app/_components/loading";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useCurrentChatId } from "../../_hooks/use-current-chat-id";
 import { useMessages } from "../../_hooks/use-message";
 import { Form } from "./form";
 import { MessageBubble } from "./message-bubble";
 import { Dashboard } from "../dashboard/dashboard";
 
-export const ChatContainer = () => {
+const ChatContainerWithoutSuspense = () => {
   const searchParams = useSearchParams();
   const chatId = searchParams.get("id");
   const { setCurrentChatId } = useCurrentChatId();
@@ -41,5 +41,13 @@ export const ChatContainer = () => {
         <Form />
       </div>
     </div>
+  );
+};
+
+export const ChatContainer = () => {
+  return (
+    <Suspense fallback={<Loading />}>
+      <ChatContainerWithoutSuspense />
+    </Suspense>
   );
 };
