@@ -1,9 +1,12 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { Button, Textarea } from "@nextui-org/react";
-import { FC } from "react";
+import { type FC } from "react";
 import { useCurrentChatId } from "../../_hooks/use-current-chat-id";
 import { api } from "@/trpc/react";
 import { useMessages } from "../../_hooks/use-message";
+import { useAttributes } from "../../_hooks/use-attributes";
+import { usePrompt } from "../../_hooks/use-prompt";
+import { replacePlaceholders } from "../prompts-modal";
 
 type Inputs = {
   message: string;
@@ -12,6 +15,9 @@ type Inputs = {
 export const Form: FC = () => {
   const { currentChatId } = useCurrentChatId();
   const { addMessage } = useMessages();
+  const { attributes } = useAttributes();
+  const { prompt } = usePrompt();
+
   const messageMutation = api.message.create.useMutation({
     onMutate: (data) => {
       addMessage({ role: "user", message: data.message });
@@ -20,6 +26,8 @@ export const Form: FC = () => {
       addMessage(data);
     },
   });
+
+  const replacedTextPrompt = replacePlaceholders(prompt, attributes);
 
   const {
     register,
@@ -34,6 +42,7 @@ export const Form: FC = () => {
     messageMutation.mutate({
       chatId: currentChatId,
       message: data.message,
+      prompt: replacedTextPrompt,
     });
 
     reset();

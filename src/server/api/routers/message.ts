@@ -2,31 +2,29 @@ import { z } from "zod";
 
 import { type Message } from "@/app/chat/_components/messages/message-bubble";
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
+import { createChat } from "@/server/openai/chat";
 import { type ChatMessage } from "@prisma/client";
+import type OpenAI from "openai";
 
 type SortField = "createdAt";
 
-type Role = "user" | "bot";
-
-function aiRandomMessage() {
-  const messages = [
-    "私はAIなので感情はありませんが、お手伝いできますよ！",
-    "今日は晴れで、最高気温は25°Cです。",
-    "どういたしまして！他に何かお手伝いできますか？",
-    "天気のこと以外にも聞きたいことがあります。今日は友人と一緒に遊びに行こうと思っていますが、どこに行くのが良いか、AIの意見を教えてください。",
-    "それは素晴らしいアイデアですね！お友達と一緒に行けるおすすめの場所としては、近くの公園や、美術館などが挙げられます。ご興味があるならば、具体的な場所をもう少し教えていただけますか？",
-  ];
-
-  // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
-  return messages[Math.floor(Math.random() * messages.length)] as string;
-}
+type Role = "user" | "system" | "assistant";
 
 function toMessage(messages: ChatMessage[]): Message[] {
   return messages.map((message) => ({
     id: message.id,
-    role: message.role as "user" | "bot",
+    role: message.role as "user" | "assistant" | "system",
     message: message.message,
   }));
+}
+
+function toOpenAiChatMessage(
+  message: Message
+): OpenAI.Chat.Completions.ChatCompletionMessageParam {
+  return {
+    role: message.role,
+    content: message.message,
+  };
 }
 
 export const messageRouter = createTRPCRouter({
@@ -69,31 +67,54 @@ export const messageRouter = createTRPCRouter({
     }),
 
   create: protectedProcedure
-    .input(z.object({ chatId: z.string(), message: z.string() }))
+    .input(
+      z.object({ chatId: z.string(), message: z.string(), prompt: z.string() })
+    )
     .mutation(async ({ ctx, input }) => {
-      const userMessage = input.message;
-      const aiMessage = aiRandomMessage();
+      const systemMessage = { role: "system" as Role, message: input.prompt };
+
+      const messageHistoriesRow = await ctx.db.chatMessage.findMany({
+        where: { chatId: input.chatId },
+        orderBy: { createdAt: "asc" },
+      });
+
+      const messageHistories = messageHistoriesRow.map((message) => ({
+        role: message.role as Role,
+        message: message.message,
+      }));
+
+      const userMessage = { role: "user" as Role, message: input.message };
+
+      const messages: Message[] = [
+        systemMessage,
+        ...messageHistories,
+        userMessage,
+      ];
+
+      const chatMessages = messages.map(toOpenAiChatMessage);
+
+      const aiMessage = await createChat(chatMessages);
 
       const data = await ctx.db.$transaction([
         ctx.db.chatMessage.create({
           data: {
             chat: { connect: { id: input.chatId } },
             role: "user",
-            message: userMessage,
+            message: userMessage.message,
           },
         }),
         ctx.db.chatMessage.create({
           data: {
             chat: { connect: { id: input.chatId } },
-            role: "bot",
+            role: "assistant",
             message: aiMessage,
           },
         }),
       ]);
 
-      const botMessage = data[1].message;
+      const assistantMessage = data[1].message;
 
-      return { role: "bot" as Role, message: botMessage };
+      return { role: "assistant" as Role, message: assistantMessage };
     }),
 
   delete: protectedProcedure

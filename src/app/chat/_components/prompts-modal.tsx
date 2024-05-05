@@ -27,15 +27,15 @@ const replacedText = {
   skillSet: "${skillSet}",
 } as const;
 
-export const replacePlaceholders = (
+export function replacePlaceholders(
   template: string,
   attributes: Attributes
-): string => {
+): string {
   return template.replace(
     /\$\{(\w+)\}/g,
     (_, key) => attributes[key as keyof Attributes] || ""
   );
-};
+}
 
 export const Prompt: FC = () => {
   const { prompt, setPrompt, resetPrompt } = usePrompt();

@@ -1,9 +1,9 @@
-import { FC } from "react";
+import { type FC } from "react";
 import { TbRobotFace } from "react-icons/tb";
 import { FiUser } from "react-icons/fi";
 
 export type Message = {
-  role: "user" | "bot";
+  role: "user" | "assistant" | "system";
   message: string;
 };
 
