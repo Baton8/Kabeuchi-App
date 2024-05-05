@@ -1,8 +1,8 @@
 import { z } from "zod";
 
+import { type Message } from "@/app/chat/_components/messages/message-bubble";
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
-import { ChatMessage, Prisma, PrismaClient } from "@prisma/client";
-import { Message } from "@/app/chat/_components/messages/message-bubble";
+import { type ChatMessage } from "@prisma/client";
 
 type SortField = "createdAt";
 
@@ -17,6 +17,7 @@ function aiRandomMessage() {
     "それは素晴らしいアイデアですね！お友達と一緒に行けるおすすめの場所としては、近くの公園や、美術館などが挙げられます。ご興味があるならば、具体的な場所をもう少し教えていただけますか？",
   ];
 
+  // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
   return messages[Math.floor(Math.random() * messages.length)] as string;
 }
 
