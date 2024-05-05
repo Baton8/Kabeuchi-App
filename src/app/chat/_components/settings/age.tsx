@@ -49,8 +49,6 @@ export const Age = () => {
     setAttributes({ ...attributes, age: e.target.value });
   };
 
-  console.log("attributes", attributes);
-
   return (
     <div>
       <Select
