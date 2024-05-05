@@ -121,7 +121,7 @@ export const CommunicationStyle = () => {
   const { attributes, setAttributes } = useAttributes();
 
   const defaultStyle = styles.find(
-    (Style) => Style.name === attributes.communicationStyle
+    (style) => style.name === attributes.communicationStyle
   );
 
   useEffect(() => {
