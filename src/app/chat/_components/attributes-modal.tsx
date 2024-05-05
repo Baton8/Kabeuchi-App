@@ -8,7 +8,7 @@ import {
   ModalHeader,
 } from "@nextui-org/react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
-import { FC } from "react";
+import { type FC } from "react";
 import { Age } from "./settings/age";
 import { CommunicationStyle } from "./settings/communication-style";
 import { Education } from "./settings/education";
@@ -20,6 +20,7 @@ import { JobTitle } from "./settings/job-title";
 import { JobPosition } from "./settings/position";
 import { Residence } from "./settings/residence";
 import { SkillSet } from "./settings/skill-set";
+import { useAttributes } from "../_hooks/use-attributes";
 
 const attributesModalOpenAtom = atom(false);
 
@@ -37,10 +38,9 @@ export function useAttributesModal() {
   return { handleModalOpen, handleModalClose };
 }
 
-type AttributesModalProps = {};
-
-export const AttributesModal: FC<AttributesModalProps> = () => {
+export const AttributesModal: FC = () => {
   const isOpen = useAtomValue(attributesModalOpenAtom);
+  const { reset } = useAttributes();
   const { handleModalClose } = useAttributesModal();
 
   return (
@@ -63,13 +63,15 @@ export const AttributesModal: FC<AttributesModalProps> = () => {
                 <Residence />
                 <SkillSet />
               </div>
+              <div>
+                <Button color="warning" onPress={reset}>
+                  Reset
+                </Button>
+              </div>
             </ModalBody>
             <ModalFooter>
               <Button color="danger" variant="light" onPress={onClose}>
                 閉じる
-              </Button>
-              <Button color="primary" onPress={onClose}>
-                保存
               </Button>
             </ModalFooter>
           </>

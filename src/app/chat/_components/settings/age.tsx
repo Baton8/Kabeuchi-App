@@ -42,7 +42,11 @@ export const Age = () => {
     if (defaultAge) {
       setValue(defaultAge.name);
     }
-  }, [defaultAge]);
+
+    return () => {
+      setValue("");
+    };
+  }, [defaultAge, attributes.age]);
 
   const handleChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     setValue(e.target.value);

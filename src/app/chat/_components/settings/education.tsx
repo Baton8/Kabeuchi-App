@@ -27,7 +27,11 @@ export const Education = () => {
     if (defaultEducation) {
       setValue(defaultEducation.name);
     }
-  }, [defaultEducation]);
+
+    return () => {
+      setValue("");
+    };
+  }, [defaultEducation, attributes.education]);
 
   const handleChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     setValue(e.target.value);

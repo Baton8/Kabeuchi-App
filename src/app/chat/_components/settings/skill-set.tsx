@@ -10,7 +10,11 @@ export const SkillSet = () => {
     if (attributes.skillSet) {
       setValue(attributes.skillSet);
     }
-  }, [attributes.skillSet]);
+
+    return () => {
+      setValue("");
+    };
+  }, [attributes.skillSet, setValue]);
 
   const handleChange = (value: string) => {
     setValue(value);

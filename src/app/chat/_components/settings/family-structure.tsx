@@ -28,7 +28,11 @@ export const FamilyStructure = () => {
     if (defaultFamilyStructure) {
       setValue(defaultFamilyStructure.name);
     }
-  }, [defaultFamilyStructure]);
+
+    return () => {
+      setValue("");
+    };
+  }, [defaultFamilyStructure, attributes.familyStructure]);
 
   const handleChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     setValue(e.target.value);

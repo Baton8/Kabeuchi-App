@@ -33,7 +33,11 @@ export const Income = () => {
     if (defaultIncome) {
       setValue(defaultIncome.name);
     }
-  }, [defaultIncome]);
+
+    return () => {
+      setValue("");
+    };
+  }, [defaultIncome, attributes.income]);
 
   const handleChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     setValue(e.target.value);

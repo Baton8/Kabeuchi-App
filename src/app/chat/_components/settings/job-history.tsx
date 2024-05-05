@@ -28,7 +28,11 @@ export const JobHistory = () => {
     if (defaultJobHistory) {
       setValue(defaultJobHistory.name);
     }
-  }, [defaultJobHistory]);
+
+    return () => {
+      setValue("");
+    };
+  }, [defaultJobHistory, attributes.jobHistory]);
 
   const handleChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     setValue(e.target.value);

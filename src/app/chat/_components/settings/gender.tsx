@@ -22,7 +22,11 @@ export const Gender = () => {
     if (defaultGender) {
       setValue(defaultGender.name);
     }
-  }, [defaultGender]);
+
+    return () => {
+      setValue("");
+    };
+  }, [defaultGender, attributes.gender]);
 
   const handleChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     setValue(e.target.value);

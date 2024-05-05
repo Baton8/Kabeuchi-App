@@ -128,7 +128,11 @@ export const CommunicationStyle = () => {
     if (defaultStyle) {
       setValue(defaultStyle.name);
     }
-  }, [defaultStyle]);
+
+    return () => {
+      setValue("");
+    };
+  }, [defaultStyle, attributes.communicationStyle]);
 
   const handleChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     setValue(e.target.value);

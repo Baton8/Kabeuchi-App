@@ -27,7 +27,11 @@ export const JobPosition = () => {
     if (defaultJobPosition) {
       setValue(defaultJobPosition.name);
     }
-  }, [defaultJobPosition]);
+
+    return () => {
+      setValue("");
+    };
+  }, [defaultJobPosition, attributes.jobPosition]);
 
   const handleChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     setValue(e.target.value);

@@ -32,7 +32,11 @@ export const Residence = () => {
     if (defaultResidence) {
       setValue(defaultResidence.name);
     }
-  }, [defaultResidence]);
+
+    return () => {
+      setValue("");
+    };
+  }, [defaultResidence, attributes.residence]);
 
   const handleChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     setValue(e.target.value);

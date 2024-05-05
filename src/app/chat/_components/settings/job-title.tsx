@@ -36,7 +36,11 @@ export const JobTitle = () => {
     if (defaultJobTitle) {
       setValue(defaultJobTitle.name);
     }
-  }, [defaultJobTitle]);
+
+    return () => {
+      setValue("");
+    };
+  }, [defaultJobTitle, attributes.jobTitle]);
 
   const handleChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     setValue(e.target.value);
