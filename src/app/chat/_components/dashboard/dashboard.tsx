@@ -1,9 +1,9 @@
-import { Button, Card, CardBody } from "@nextui-org/react";
-import { useChat } from "../../_hooks/use-chat";
-import { usePromptsModal } from "../prompts-modal";
-import { useAttributesModal } from "../attributes-modal";
 import { Loading } from "@/app/_components/loading";
+import { Card, CardBody } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
+import { useChat } from "../../_hooks/use-chat";
+import { useAttributesModal } from "../attributes-modal";
+import { usePromptsModal } from "../prompts-modal";
 
 const ChatList = () => {
   const { data, isLoading } = useChat();

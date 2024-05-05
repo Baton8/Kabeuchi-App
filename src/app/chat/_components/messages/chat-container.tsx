@@ -18,7 +18,7 @@ export const ChatContainer = () => {
     if (chatId) {
       setCurrentChatId(chatId);
     }
-  }, [chatId]);
+  }, [chatId, setCurrentChatId]);
 
   if (!chatId) {
     return <Dashboard />;

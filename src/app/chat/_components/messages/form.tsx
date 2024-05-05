@@ -29,12 +29,7 @@ export const Form: FC = () => {
 
   const replacedTextPrompt = replacePlaceholders(prompt, attributes);
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<Inputs>();
+  const { register, handleSubmit, reset } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (!currentChatId) return;

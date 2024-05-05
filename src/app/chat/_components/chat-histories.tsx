@@ -10,7 +10,7 @@ import {
   CardBody,
 } from "@nextui-org/react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
-import { FC } from "react";
+import { type FC } from "react";
 import { useChat } from "../_hooks/use-chat";
 import { Loading } from "@/app/_components/loading";
 import { useRouter } from "next/navigation";
@@ -82,9 +82,7 @@ export function useChatHistoriesModal() {
   return { handleModalOpen, handleModalClose };
 }
 
-type ChatHistoriesModalProps = {};
-
-export const ChatHistoriesModal: FC<ChatHistoriesModalProps> = () => {
+export const ChatHistoriesModal: FC = () => {
   const isOpen = useAtomValue(chatHistoriesModalOpenAtom);
   const { handleModalClose } = useChatHistoriesModal();
   const { data, isLoading } = useChat();
@@ -100,7 +98,7 @@ export const ChatHistoriesModal: FC<ChatHistoriesModalProps> = () => {
                 <Loading />
               ) : (
                 <ChatHistories
-                  chatHistories={data || []}
+                  chatHistories={data ?? []}
                   handleModalClose={handleModalClose}
                 />
               )}
