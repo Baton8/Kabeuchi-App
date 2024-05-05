@@ -12,6 +12,7 @@ import {
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { useRef, type FC } from "react";
 import { usePrompt } from "../_hooks/use-prompt";
+import { type Attributes } from "../_hooks/use-attributes";
 
 const replacedText = {
   age: "${age}",
@@ -25,6 +26,16 @@ const replacedText = {
   income: "${income}",
   skillSet: "${skillSet}",
 } as const;
+
+export const replacePlaceholders = (
+  template: string,
+  attributes: Attributes
+): string => {
+  return template.replace(
+    /\$\{(\w+)\}/g,
+    (_, key) => attributes[key as keyof Attributes] || ""
+  );
+};
 
 export const Prompt: FC = () => {
   const { prompt, setPrompt, resetPrompt } = usePrompt();

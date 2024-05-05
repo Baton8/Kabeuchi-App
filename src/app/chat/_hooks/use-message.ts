@@ -1,8 +1,8 @@
-import { atom, useAtom } from "jotai";
-import { type Message } from "../_components/messages/message-bubble";
 import { api } from "@/trpc/react";
-import { useCurrentChatId } from "./use-current-chat-id";
+import { atom, useAtom } from "jotai";
 import { useEffect } from "react";
+import { type Message } from "../_components/messages/message-bubble";
+import { useCurrentChatId } from "./use-current-chat-id";
 
 const messagesAtom = atom<Message[]>([]);
 

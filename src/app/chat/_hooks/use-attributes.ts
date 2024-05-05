@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
-type Attributes = {
+export type Attributes = {
   age: string;
   education: string;
   communicationStyle: string;
