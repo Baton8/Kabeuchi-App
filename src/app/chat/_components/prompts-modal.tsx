@@ -99,7 +99,12 @@ export const Prompt: FC = () => {
           </Button>
         </ButtonGroup>
       </div>
-      <Textarea value={prompt} ref={textareaRef} onValueChange={setPrompt} />
+      <Textarea
+        value={prompt}
+        ref={textareaRef}
+        onValueChange={setPrompt}
+        minRows={10}
+      />
       <div>
         <Button onClick={resetPrompt} color="warning">
           リセット
