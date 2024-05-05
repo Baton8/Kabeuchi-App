@@ -8,5 +8,7 @@ const promptAtom = atomWithStorage("prompt", defaultPrompt);
 export function usePrompt() {
   const [prompt, setPrompt] = useAtom(promptAtom);
 
-  return { prompt, setPrompt };
+  const resetPrompt = () => setPrompt(defaultPrompt);
+
+  return { prompt, setPrompt, resetPrompt };
 }
