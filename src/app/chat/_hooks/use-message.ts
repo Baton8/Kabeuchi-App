@@ -1,5 +1,5 @@
 import { atom, useAtom } from "jotai";
-import { Message } from "../_components/messages/message-bubble";
+import { type Message } from "../_components/messages/message-bubble";
 import { api } from "@/trpc/react";
 import { useCurrentChatId } from "./use-current-chat-id";
 import { useEffect } from "react";
@@ -31,7 +31,7 @@ export const useMessages = () => {
     if (messagesFromApi) {
       setMessages(messagesFromApi);
     }
-  }, [messagesFromApi]);
+  }, [messagesFromApi, setMessages]);
 
   const addMessage = (message: Message) => {
     setMessages((prev) => [...prev, message]);
