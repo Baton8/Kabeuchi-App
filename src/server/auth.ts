@@ -45,14 +45,8 @@ export const authOptions: NextAuthOptions = {
       },
     }),
     signIn: async ({ user }) => {
-      if (!user.email) return false;
-      const isAllowedToSignIn = env.ALLOWED_SIGNIN_USERS.split(",").includes(
-        user.email
-      );
-      if (isAllowedToSignIn) {
-        return true;
-      }
-      return false;
+      console.log("signIn", user);
+      return true;
     },
   },
   adapter: PrismaAdapter(db) as Adapter,
